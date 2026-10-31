@@ -4,7 +4,7 @@ const { User, Post } = require('../models');
 const newUser = async (req, res) => {
 try {
 const { firstName, lastName, email, phoneNumber } = (req.body);
-const newUser = await Student.create({ 
+const newUser = await User.create({ 
         firstName,
         lastName, 
         email,
@@ -29,6 +29,7 @@ const getALLUsers = async (req, res)=>{
         const user = await User.findAll({
             include: {
                 model: Post,
+                    as: 'posts',
                 attributes: [ "title" ]
             }})
         return res.status(200).json({data:user})
@@ -46,8 +47,9 @@ const {id} = req.params;
 const user = await User.findByPk(id, {
     includes: [{
         attributes: ['firstName', 'lastName', 'email'],
+         as:'posts',   
         Model: Post,
-        as: "Post"
+       
     }]
 });
 
@@ -75,6 +77,7 @@ const getUserbyPk = async(req, res)=> {
         const user = await User.findByPk(id,{ 
             include:{
                     model: Post,
+                    as: 'posts',
                     attributes:["title"]
                 }
         })

@@ -1,5 +1,5 @@
 const express = require('express');
-PORT = 2019;
+
 const sequelize = require('./database/database');
 
 const userRouter = require('./router/user');
@@ -12,6 +12,7 @@ app.use(express.json);
 app.use(userRouter);
 app.use(postRouter);
 
+comst PORT = 2019;
 
 const databaseConnection = async () => {
     try {

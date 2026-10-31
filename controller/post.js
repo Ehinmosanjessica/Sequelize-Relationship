@@ -30,6 +30,7 @@ const getAllPosts = async (req, res) => {
         const posts = await Post.findAll({
             include: {
                 model: User,
+                as: 'users',
                 attributes: [ firstName, lastName, email ]
         }
     });
@@ -53,7 +54,10 @@ const getOnePost = async (req, res) => {
         const { id } = req.params;
 
         const post = await Post.findByPk(id, {
-            include: User
+            include: User,
+            as: 'users',
+            attributes: [ firstName, lastName, email ]
+
         });
 
         if (!post) {
@@ -82,7 +86,7 @@ const getPostbyPk = async(req, res)=> {
         const post = await Post.findByPk(id,{ 
             include:[{
                     model: User,
-                    as:"userpost",
+                    as:"users",
                     attribute:["firstName", "lastName"]
                 }]
         })
